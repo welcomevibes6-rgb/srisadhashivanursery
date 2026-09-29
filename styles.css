@@ -172,70 +172,35 @@ img { max-width: 100%; display: block; }
     padding: 0; overflow: hidden;
     background: #0a1f14;
 }
-.hero-slider { position: relative; width: 100%; display: grid; }
-.hero-slide {
-    grid-area: 1 / 1; width: 100%; height: 100%;
-    opacity: 0; z-index: 1;
-    display: flex; align-items: center; justify-content: center;
+.hero-banner {
     position: relative;
-    pointer-events: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
     overflow: hidden;
 }
-.hero-slide.active {
-    opacity: 1;
-    z-index: 3;
-    pointer-events: auto;
-}
-.hero-slide.last-active {
-    opacity: 1 !important;
-    z-index: 2 !important;
-    transform: none !important;
-    transition: none !important;
+.hero-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(10, 31, 20, 0.75) 0%,
+        rgba(10, 31, 20, 0.52) 38%,
+        rgba(10, 31, 20, 0.20) 70%,
+        rgba(10, 31, 20, 0.05) 100%
+    );
     pointer-events: none;
+    z-index: 2;
 }
 .hero-img {
-    width: 100%; height: calc(100vh - 105px); object-fit: cover;
+    width: 100%;
+    height: calc(100vh - 105px);
+    min-height: 520px;
+    max-height: 760px;
+    object-fit: cover;
     object-position: center;
     display: block;
-    transform: none !important;
-}
-
-/* Slide 1 (Image 1): Smooth fade transition */
-.hero-slide:nth-child(1) {
-    transform: none;
-    transition: opacity 1.25s ease-in-out;
-}
-.hero-slide:nth-child(1).active {
-    opacity: 1;
-}
-
-/* Slide 2 (Image 2): Smooth horizontal slide/reveal */
-.hero-slide:nth-child(2) {
-    transform: translate3d(35px, 0, 0);
-    transition: opacity 1.15s cubic-bezier(0.25, 1, 0.5, 1), transform 1.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-slide:nth-child(2).active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-}
-
-/* Slide 3 (Image 3): Smooth fade transition */
-.hero-slide:nth-child(3) {
-    transform: none;
-    transition: opacity 1.25s ease-in-out;
-}
-.hero-slide:nth-child(3).active {
-    opacity: 1;
-}
-
-/* Slide 4 (Image 4): Smooth horizontal/soft reveal transition */
-.hero-slide:nth-child(4) {
-    transform: translate3d(-35px, 0, 0);
-    transition: opacity 1.15s cubic-bezier(0.25, 1, 0.5, 1), transform 1.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-slide:nth-child(4).active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
 }
 
 /* ===== HERO BRAND OVERLAY (PREMIUM MODERN NURSERY) ===== */
@@ -253,11 +218,9 @@ img { max-width: 100%; display: block; }
 .hero-brand-wrap {
     max-width: 760px;
     pointer-events: auto;
-    opacity: 0;
-    transform: translateY(22px);
-}
-.hero-slide.active .hero-brand-wrap {
-    animation: heroBrandReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    opacity: 1;
+    transform: none;
+    animation: heroBrandReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 .hero-badge {
     display: inline-flex;
@@ -317,33 +280,6 @@ img { max-width: 100%; display: block; }
         transform: translateY(0);
     }
 }
-
-.hero-dots {
-    position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 10px; z-index: 20;
-}
-.dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: rgba(255,255,255,0.4); cursor: pointer;
-    transition: var(--transition); border: 2px solid transparent;
-}
-.dot.active { background: var(--green-400); border-color: var(--white); width: 28px; border-radius: 10px; }
-
-.hero-arrow {
-    position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
-    width: 48px; height: 48px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.4);
-    background: rgba(255,255,255,0.15); color: var(--white);
-    font-size: 1rem; cursor: pointer; transition: var(--transition);
-    display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(8px);
-}
-.hero-arrow:hover {
-    background: var(--green-600); border-color: var(--green-600);
-    transform: translateY(-50%) scale(1.05);
-}
-.hero-prev { left: 20px; }
-.hero-next { right: 20px; }
 
 /* ===== ABOUT ===== */
 .about-grid {
@@ -1055,12 +991,36 @@ img { max-width: 100%; display: block; }
 
 .plant-overlay-name {
     position: absolute; bottom: 8px; left: 8px; right: 8px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3) 60%, transparent);
-    color: var(--white); padding: 25px 15px 12px;
-    font-weight: 500; font-size: 1.1rem;
+    background: linear-gradient(to top, rgba(7, 24, 15, 0.94) 0%, rgba(7, 24, 15, 0.65) 60%, transparent 100%);
+    color: var(--white);
+    padding: 30px 14px 12px;
     border-radius: 0 0 var(--radius) var(--radius);
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: var(--transition);
+}
+.plant-card-title {
     font-family: 'Playfair Display', serif;
-    pointer-events: none; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+.plant-card-tag {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #86efac;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.plant-card-leaf {
+    font-size: 0.75rem;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -1120,25 +1080,36 @@ img { max-width: 100%; display: block; }
         padding: 0 0 0 16px; min-width: 0;
     }
 
+    .hero-banner::after {
+        background: linear-gradient(
+            180deg,
+            rgba(10, 31, 20, 0.65) 0%,
+            rgba(10, 31, 20, 0.45) 50%,
+            rgba(10, 31, 20, 0.70) 100%
+        );
+    }
     .hero-img {
-        height: 65vw;
-        max-height: 320px;
-        min-height: 240px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        min-height: 250px;
+        max-height: 380px;
         object-fit: cover;
         object-position: center;
     }
     .hero-content {
         padding: 0 20px;
         top: 50%;
+        transform: translateY(-50%);
     }
     .hero-brand-wrap {
-        max-width: 85%;
+        max-width: 88%;
     }
     .hero-badge {
         font-size: 0.74rem;
         letter-spacing: 1.5px;
         padding: 5px 12px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         gap: 6px;
     }
     .hero-badge i {
@@ -1152,24 +1123,6 @@ img { max-width: 100%; display: block; }
     .hero-subtitle {
         font-size: 0.88rem;
         line-height: 1.45;
-    }
-    .hero-arrow {
-        width: 36px;
-        height: 36px;
-        font-size: 0.85rem;
-    }
-    .hero-prev { left: 10px; }
-    .hero-next { right: 10px; }
-    .hero-dots {
-        bottom: 12px;
-        gap: 8px;
-    }
-    .dot {
-        width: 8px;
-        height: 8px;
-    }
-    .dot.active {
-        width: 22px;
     }
     .about-grid { grid-template-columns: 1fr; gap: 35px; }
     .about-image img { width: 100%; height: auto; aspect-ratio: 3 / 2; }
@@ -1249,15 +1202,18 @@ img { max-width: 100%; display: block; }
         font-size: 0.64rem;
     }
     .hero-img {
-        height: 68vw;
-        max-height: 290px;
-        min-height: 230px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        min-height: 235px;
+        max-height: 310px;
         object-fit: cover;
         object-position: center;
     }
     .hero-content {
         padding: 0 16px;
         top: 50%;
+        transform: translateY(-50%);
     }
     .hero-brand-wrap {
         max-width: 100%;
@@ -1266,7 +1222,7 @@ img { max-width: 100%; display: block; }
         font-size: 0.68rem;
         letter-spacing: 1.2px;
         padding: 4px 10px;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         gap: 5px;
     }
     .hero-badge i {
@@ -1281,12 +1237,6 @@ img { max-width: 100%; display: block; }
         font-size: 0.8rem;
         line-height: 1.4;
     }
-    .hero-arrow {
-        width: 32px;
-        height: 32px;
-        font-size: 0.78rem;
-    }
-    .hero-prev { left: 8px; }
     .collections-grid {
         grid-template-columns: 1fr;
         gap: 14px;

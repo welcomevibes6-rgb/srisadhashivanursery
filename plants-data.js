@@ -17,10 +17,20 @@ document.addEventListener('DOMContentLoaded', () => {
             img.onerror = function() { item.style.display = 'none'; };
             item.appendChild(img);
             
-            if (names && names.length > i) {
+            if (names && names.length > i && names[i]) {
                 const overlay = document.createElement('div');
                 overlay.className = 'plant-overlay-name';
-                overlay.textContent = names[i];
+
+                const nameEl = document.createElement('div');
+                nameEl.className = 'plant-card-title';
+                nameEl.textContent = names[i];
+                overlay.appendChild(nameEl);
+
+                const tagEl = document.createElement('div');
+                tagEl.className = 'plant-card-tag';
+                tagEl.innerHTML = '<span class="plant-card-leaf">🌱</span> Flowering Plant';
+                overlay.appendChild(tagEl);
+
                 item.appendChild(overlay);
             }
             
@@ -62,7 +72,27 @@ document.addEventListener('DOMContentLoaded', () => {
         '30.png',
         '31.png'
     ];
-    buildGrid('floweringGrid', flowerImg);
+
+    const flowerNames = [
+        'Pink Plumeria (Frangipani)',
+        'Red Hibiscus',
+        'Yellow Hawaiian Hibiscus',
+        'Peach Hibiscus',
+        'Pink Bougainvillea',
+        'Allamanda (Yellow Bell)',
+        'Snapdragon & Dianthus',
+        'Madhu Kamini (Orange Jasmine)',
+        'Lantana & White Plumeria',
+        'Vinca Rosea (Sadabahar)',
+        'Nerium Oleander (Kaner)',
+        'Garlic Vine (Mansoa)',
+        'Bird of Paradise',
+        'White Plumeria (Champa)',
+        'Flowering Trio (Jasmine, Bougainvillea, Rose)',
+        'Red-Orange Lantana'
+    ];
+
+    buildGrid('floweringGrid', flowerImg, flowerNames);
 
     // ===== OUTDOOR (o1 to o64) =====
     const outdoorImg = [];
