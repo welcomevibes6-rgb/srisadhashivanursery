@@ -94,9 +94,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     buildGrid('floweringGrid', flowerImg, flowerNames);
 
-    // ===== OUTDOOR (o1 to o64) =====
-    const outdoorImg = [];
-    for (let i = 1; i <= 64; i++) outdoorImg.push(`o${i}.jpg`);
+    // ===== OUTDOOR (26 images) =====
+    const outdoorImg = [
+        'image copy 35.png',
+        'image copy 36.png',
+        'image copy 37.png',
+        'image copy 38.png',
+        'image copy 39.png',
+        'image copy 40.png',
+        'image copy 50.png',
+        'image copy 51.png',
+        'image copy 52.png',
+        'image copy 53.png',
+        'image copy 54.png',
+        'image copy 55.png',
+        'image copy 56.png',
+        'image copy 57.png',
+        'image copy 58.png',
+        'image copy 59.png',
+        'image copy 60.png',
+        'image copy 61.png',
+        'image copy 62.png',
+        'image copy 63.png',
+        'image copy 64.png',
+        'image copy 65.png',
+        'image copy 66.png',
+        'image copy 67.png',
+        'image copy 68.png',
+        'image copy 69.png'
+    ];
     buildGrid('outdoorGrid', outdoorImg);
 
     // ===== ORNAMENTALS =====
